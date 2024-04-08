@@ -15,15 +15,16 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 # Used to generate home.html
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, RedirectView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # Redirects to home.html
-    path('', TemplateView.as_view(template_name='home.html')),
-    # enables Django to server static files (development only)
+    # calls views.index within car_catalog/views.py
+    path('', RedirectView.as_view(url='catalog/')),
+    path('catalog/', include('car_catalog.urls')),
+    # enables Django to serve static files (development only)
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
