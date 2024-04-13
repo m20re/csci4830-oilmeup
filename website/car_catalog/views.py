@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.views.generic import ListView, DetailView
 from .models import Car
 
 def index(request):
@@ -12,3 +13,8 @@ def index(request):
 
     return render(request, 'index.html', context=context)
 # Create your views here.
+
+class CarListView(ListView):
+    model = Car
+    template_name = 'car_catalog/car_list.html'
+    context_object_name = 'cars'

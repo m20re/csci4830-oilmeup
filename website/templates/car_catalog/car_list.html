@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>List of Cars</h1>
+    <ul>
+        {% for cars in cars %}
+            <li>
+                {{ cars.make }} {{ cars.model }} - {{ cars.year }}
+            </li>
+        {% empty %}
+            <li>No cars in database.</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
