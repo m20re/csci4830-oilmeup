@@ -5,7 +5,7 @@
     <ul>
         {% for cars in cars %}
             <li>
-                {{ cars.make }} {{ cars.model }} - {{ cars.year }}
+                <a href="{{ cars.get_absolute_url }}">{{ cars.make }} {{ cars.model }} - {{ cars.year }}</a>
             </li>
         {% empty %}
             <li>No cars in database.</li>

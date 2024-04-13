@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>{{ car.make }} {{ car.model }}</h1>
+
+    <a href="{% url 'car-list' %}">Back to car list</a>
+    
+{% endblock %}
