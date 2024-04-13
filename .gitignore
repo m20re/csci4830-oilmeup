@@ -153,10 +153,6 @@ dmypy.json
 cython_debug/
 
 # Ignore the images within media
-website/media/*
-
-!website/media/
-
 website/media/cars_images/
 # PyCharm
 #  JetBrains specific template is maintained in a separate JetBrains.gitignore that can
