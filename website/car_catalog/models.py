@@ -11,7 +11,25 @@ class Car(models.Model):
     year = models.CharField(max_length=100)
     color = models.CharField(max_length=100)
     style = models.CharField(max_length=100)
+    price = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
     
+    TRANSMISSION_CHOICES = {
+        ('automatic', 'Automatic'),
+        ('manual', 'Manual'),
+    }
+
+    transmission = models.CharField(max_length=50, choices=TRANSMISSION_CHOICES, default='automatic')
+
+    FUEL_CHOICES = {
+        ('gasoline', 'Gasoline'),
+        ('diesel', 'Diesel'),
+        ('electric', 'Electric')
+    }
+
+    fuel_type = models.CharField(max_length=50, choices=FUEL_CHOICES, default='gasoline')
+
+    image = models.ImageField(upload_to='cars_images', blank=True, null=True)
+
 
     class Meta:
         ordering = ['year', 'make', 'model']
@@ -23,3 +41,4 @@ class Car(models.Model):
     def __str__(self):
         """String for representing the Model object."""
         return f'{self.year}, {self.make}, {self.model}'
+    

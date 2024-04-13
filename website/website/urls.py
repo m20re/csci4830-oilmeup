@@ -26,5 +26,6 @@ urlpatterns = [
     # calls views.index within car_catalog/views.py
     path('', RedirectView.as_view(url='catalog/')),
     path('catalog/', include('car_catalog.urls')),
-    # enables Django to serve static files (development only)
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    # enables Django to serve static and media files (development only)
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
