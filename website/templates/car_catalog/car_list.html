@@ -1,14 +1,60 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>List of Cars</h1>
-    <ul>
-        {% for cars in cars %}
-            <li>
-                <a href="{{ cars.get_absolute_url }}">{{ cars.make }} {{ cars.model }} - {{ cars.year }}</a>
-            </li>
-        {% empty %}
-            <li>No cars in database.</li>
-        {% endfor %}
-    </ul>
+    <div class="container mt-4">
+        <h1 class="text-center mb-4">List of Cars</h1>
+        
+        <!-- Filtering form -->
+        <div class="mb-3">
+            <form method="get" class="row g-3">
+                <div class="col-auto">
+                    <input type="text" name="color" id="color" class="form-control" placeholder="Color">
+                </div>
+                <div class="col-auto">
+                    <input type="text" name="style" id="style" class="form-control" placeholder="Style">
+                </div>
+                <div class="col-auto">
+                    <input type="text" name="fuel_type" id="fuel_type" class="form-control" placeholder="Fuel Type">
+                </div>
+                <div class="col-auto">
+                    <input type="text" name="search" id="search" class="form-control" placeholder="Search">
+                </div>
+                <div class="col-auto">
+                    <button type="submit" class="btn btn-primary mb-3">Filter</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Sorting buttons -->
+        <div class="text-center mb-4">
+            <a href="?sort_by=make" class="btn btn-outline-secondary btn-sm mx-1">Sort by Make</a>
+            <a href="?sort_by=price" class="btn btn-outline-secondary btn-sm mx-1">Sort by Price</a>
+            <a href="?sort_by=year" class="btn btn-outline-secondary btn-sm mx-1">Sort by Year</a>
+        </div>
+
+        <!-- Car list -->
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            {% for car in cars %}
+                <div class="col">
+                    <div class="card h-100">
+                        {% if car.image %}
+                            <img src="{{ car.image.url }}" class="card-img-top" alt="{{ car.make }} {{ car.model }}" style="height: 200px; object-fit: cover;">
+                        {% else %}
+                            <p class="text-center my-5">No image available.</p>
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title">{{ car.make }} {{ car.model }} - {{ car.year }}</h5>
+                            <p class="card-text">Price: ${{ car.price }}</p>
+                            <a href="{{ car.get_absolute_url }}" class="btn btn-primary">View Details</a>
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <div class="col-12">
+                    <p class="text-center">No cars in database.</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
 {% endblock %}
+###

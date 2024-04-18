@@ -1,19 +1,27 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>{{ car.make }} {{ car.model }} - {{car.year}}</h1>
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <div class="card mb-4 shadow-sm">
 
-    {% if car.image %}
-        <img src="{{ car.image.url }}" alt="{{ car.make }} {{ car.model }}" class="car-image">
-    {% endif %}
+                <!-- car image -->
+                <img src="{{ car.image.url }}" class="card-img-top" alt="{{ car.make }} {{ car.model }}" style="height: 400px; object-fit: cover;">
 
-    <p>Color: {{ car.color }}</p>
-    <p>Style: {{ car.style }}</p>
-    <p>Price: ${{ car.price }}</p>
-    <p>Transmission: {{ car.transmission }}</p>
-    <p>Fuel Type: {{ car.fuel_type }}</p>
-
-
-    <a href="{% url 'car-list' %}">Back to car list</a>
-
+                <div class="card-body">
+                    <h2 class="card-title">{{ car.make }} {{ car.model }} - {{ car.year }}</h2>
+                    <p class="card-text">
+                        <strong>Color:</strong> {{ car.color }}<br>
+                        <strong>Style:</strong> {{ car.style }}<br>
+                        <strong>Price:</strong> ${{ car.price }}<br>
+                        <strong>Transmission:</strong> {{ car.get_transmission_display }}<br>
+                        <strong>Fuel Type:</strong> {{ car.get_fuel_type_display }}<br>
+                    </p>
+                    <a href="{% url 'car-list' %}" class="btn btn-primary">Back to car list</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
