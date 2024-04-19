@@ -6,8 +6,10 @@
         <div class="col-lg-8 mx-auto">
             <div class="card mb-4 shadow-sm">
 
-                <!-- car image -->
-                <img src="{{ car.image.url }}" class="card-img-top" alt="{{ car.make }} {{ car.model }}" style="height: 400px; object-fit: cover;">
+                {% if car.image %}
+                    <!-- car image -->
+                    <img src="{{ car.image.url }}" class="card-img-top" alt="{{ car.make }} {{ car.model }}" style="height: 400px; object-fit: cover;">
+                {% endif %}
 
                 <div class="card-body">
                     <h2 class="card-title">{{ car.make }} {{ car.model }} - {{ car.year }}</h2>
