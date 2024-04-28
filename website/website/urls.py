@@ -14,18 +14,24 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.contrib.auth import views as auth_views
 from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 # Used to generate home.html
 from django.views.generic import TemplateView, RedirectView
+from car_catalog import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     # calls views.index within car_catalog/views.py
     path('', RedirectView.as_view(url='catalog/')),
     path('catalog/', include('car_catalog.urls')),
+    path('signup/', views.SignUp.as_view(), name='signup'),
+
+    path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
+    path('logout/', auth_views.LogoutView.as_view(next_page='index'), name='logout'),
     # enables Django to serve static and media files (development only)
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

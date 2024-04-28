@@ -2,6 +2,12 @@ from django.shortcuts import render
 from django.views.generic import ListView, DetailView
 from .models import Car
 from django.db.models import Q
+from django.contrib.auth.forms import UserCreationForm
+from django.urls import reverse_lazy
+from django.views import generic
+from django.contrib.auth.forms import UserCreationForm
+from .forms import CustomUserCreationForm
+
 
 def index(request):
     """View function for home page of the site"""
@@ -60,3 +66,8 @@ class CarDetailView(DetailView):
     model = Car
     template_name = 'car_catalog/car_detail.html'
     context_object_name = 'car'
+
+class SignUp(generic.CreateView):
+    form_class = CustomUserCreationForm
+    success_url = reverse_lazy('login')
+    template_name = 'signup.html'

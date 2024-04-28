@@ -56,13 +56,19 @@ class Car(models.Model):
         # Use django's ORM save to save to the database
         super(Car, self).save(*args, **kwargs)
 
+class UserProfile(models.Model):
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    budget = models.DecimalField(max_digits=10, decimal_places=2,  default=0)
 
+    # Add any other additional fields here
+
+    def __str__(self):
+        return self.user.username
 
 
 
     class Meta:
-        ordering = ['year', 'make', 'model']
-
+        ordering = ['user__username']
     def get_absolute_url(self):
         """Returns the URL to access a particular car instance."""
         return reverse('car-detail', args=[str(self.id)])
