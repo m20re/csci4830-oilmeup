@@ -46,8 +46,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
-    # add the car_catalog app
     'car_catalog.apps.CarCatalogConfig',
 ]
 
