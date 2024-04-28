@@ -73,6 +73,10 @@ class UserProfile(models.Model):
     class Meta:
         ordering = ['user__username']
 
+    def get_absolute_url(self):
+        """Returns the URL to access a user instance."""
+        return reverse('user-detail', args=[str(self.id)])
+    
     def __str__(self):
         """String for representing the Model object."""
         return f'{self.year}, {self.make}, {self.model}'
