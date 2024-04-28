@@ -56,6 +56,11 @@ class Car(models.Model):
         # Use django's ORM save to save to the database
         super(Car, self).save(*args, **kwargs)
 
+    def get_absolute_url(self):
+        """Returns the URL to access a particular car instance."""
+        return reverse('car-detail', args=[str(self.id)])
+    
+
 class UserProfile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     budget = models.DecimalField(max_digits=6, decimal_places=1,  default=0)
@@ -67,9 +72,6 @@ class UserProfile(models.Model):
 
     class Meta:
         ordering = ['user__username']
-    def get_absolute_url(self):
-        """Returns the URL to access a particular car instance."""
-        return reverse('car-detail', args=[str(self.id)])
 
     def __str__(self):
         """String for representing the Model object."""
