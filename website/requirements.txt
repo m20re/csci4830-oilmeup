@@ -1,6 +1,6 @@
 asgiref==3.8.1
 cffi==1.16.0
-cryptography==42.0.0
+cryptography==42.0.4
 Django==4.2.11
 gunicorn==22.0.0
 packaging==24.0
