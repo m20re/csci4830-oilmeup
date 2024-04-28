@@ -7,7 +7,8 @@ from django.urls import reverse_lazy
 from django.views import generic
 from django.contrib.auth.forms import UserCreationForm
 from .forms import CustomUserCreationForm
-
+from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
 
 def index(request):
     """View function for home page of the site"""
@@ -71,3 +72,24 @@ class SignUp(generic.CreateView):
     form_class = CustomUserCreationForm
     success_url = reverse_lazy('login')
     template_name = 'signup.html'
+
+from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
+from .models import Car, UserProfile
+
+@login_required
+def profile_view(request):
+    # Get the logged in user's profile
+    user_profile = UserProfile.objects.get(user=request.user)
+    budget = user_profile.budget
+
+    # Get the cars within the user's budget
+    cars_within_budget = Car.objects.filter(price__lte=budget)
+
+    context = {
+        'user': request.user,
+        'budget': budget,
+        'cars_within_budget': cars_within_budget,
+    }
+
+    return render(request, 'profile.html', context)

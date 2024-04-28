@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Welcome, {{ user.username }}!</h1>
+<p>Your budget is {{ budget }}.</p>
+{% if cars_within_budget %}
+  <h2>Cars within your budget:</h2>
+  <ul>
+    {% for car in cars_within_budget %}
+      <li>{{ car.make }} {{ car.model }} - ${{ car.price }}</li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>There are no cars available within your budget.</p>
+{% endif %}
+{% endblock %}

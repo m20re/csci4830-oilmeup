@@ -33,6 +33,8 @@ DEBUG = os.getenv("DEBUG") == 'False'
 
 ALLOWED_HOSTS = [os.getenv("ALLOWED_HOSTS")]
 
+LOGIN_REDIRECT_URL = 'profile_view'
+LOGOUT_REDIRECT_URL = 'index'
 
 # Application definition
 
