@@ -66,7 +66,6 @@ class UserProfile(models.Model):
         return self.user.username
 
 
-
     class Meta:
         ordering = ['user__username']
     def get_absolute_url(self):
