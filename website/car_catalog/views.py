@@ -1,9 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Car, UserProfile
 from django.db.models import Q
 from django.urls import reverse_lazy
 from django.views import generic
 from .forms import CustomUserCreationForm
+from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
 
 def index(request):
@@ -64,8 +65,25 @@ class CarDetailView(generic.DetailView):
 
 class SignUp(generic.CreateView):
     form_class = CustomUserCreationForm
-    success_url = reverse_lazy('login')
+    success_url = reverse_lazy('profile_view')
     template_name = 'signup.html'
+
+    # Django automatically calls this method when the form is valid
+    def form_valid(self, form):
+        # save the user
+        self.object = form.save()
+        # Authenticate the user
+        username = form.cleaned_data.get('username')
+        password = form.cleaned_data.get('password1')
+        user = authenticate(username=username, password=password)
+        # if it worked
+        if user is not None:
+            login(self.request, user)
+            return redirect(self.get_success_url())
+        else:
+            # return to the signup page if it didn't work
+            return super().form_valid(form)
+
 
 
 @login_required
