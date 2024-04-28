@@ -58,7 +58,7 @@ class Car(models.Model):
 
 class UserProfile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    budget = models.DecimalField(max_digits=10, decimal_places=2,  default=0)
+    budget = models.DecimalField(max_digits=6, decimal_places=1,  default=0)
 
     # Add any other additional fields here
 

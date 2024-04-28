@@ -1,16 +1,66 @@
-{%  extends "base.html" %}
+{% extends "base.html" %}
+
+{% block title %}
+<title>AutoMatch - Your Car Selection Partner</title>
+{% endblock %}
 
 {% block content %}
-    <h1>Car Homepage</h1>
-    <p>
-        This is a placeholder homepage for a car website.
+<div class="text-center my-5">
+    <h1>Welcome to AutoMatch!</h1>
+    <p class="lead">
+        Discover your perfect car match with our comprehensive car database.
     </p>
+
     <h2>Database Information</h2>
     {% if num_cars == 0 %}
-    <p>This datbase currently has no cars!</p>
+    <div class="alert alert-info" role="alert">
+        Our database is currently empty. Check back soon for car listings!
+    </div>
     {% elif num_cars == 1 %}
-    <p>There is <strong>{{ num_cars }}</strong> car in the database!</p>
+    <div class="alert alert-success" role="alert">
+        There is <strong>{{ num_cars }}</strong> car waiting for you in our database!
+    </div>
     {% else %}
-    <p> There are <strong>{{ num_cars }}</strong> cars in the database!</p>
+    <div class="alert alert-success" role="alert">
+        There are <strong>{{ num_cars }}</strong> cars available for you to explore!
+    </div>
     {% endif %}
+</div>
+{% endblock %}
+
+{% block custom_css %}
+<style>
+    .signup-container {
+        max-width: 400px;
+        margin: 40px auto;
+        padding: 20px;
+        background-color: #f8f9fa;
+        border-radius: 10px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .signup-form {
+        display: flex;
+        flex-direction: column;
+    }
+    .signup-form .form-group {
+        margin-bottom: 15px;
+    }
+    .signup-form .form-group label {
+        display: block;
+        margin-bottom: 5px;
+    }
+    .signup-form .form-group input {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ced4da;
+        border-radius: 5px;
+    }
+    .signup-form .btn-primary {
+        padding: 10px;
+        border-radius: 5px;
+    }
+    .login-link {
+        text-align: center;
+    }
+</style>
 {% endblock %}

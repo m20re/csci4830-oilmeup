@@ -1,17 +1,65 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="register-form">
-    <h2>Sign Up</h2>
-    <form method="post">
+<div class="signup-container">
+    <h1 class="display-5 fw-bold text-center">Sign Up for AutoMatch</h1>
+    <form method="post" class="signup-form">
         {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-primary">Register</button>
+        <div class="form-group">
+            {{ form.username.label_tag }}
+            {{ form.username }}
+        </div>
+        <div class="form-group">
+            {{ form.budget.label_tag }}
+            {{ form.budget }}
+        </div>
+        <div class="form-group">
+            {{ form.password1.label_tag }}
+            {{ form.password1 }}
+        </div>
+        <div class="form-group">
+            {{ form.password2.label_tag }}
+            {{ form.password2 }}
+        </div>
+        <button type="submit" class="btn btn-primary mt-4">Register</button>
+        <p class="login-link mt-3">Already have an account? <a href="{% url 'login' %}">Login here</a></p>
     </form>
-    <div class="mb-3">
-        <label for="id_budget" class="form-label">Budget</label>
-        <input type="number" step="any" name="budget" required id="id_budget" class="form-control">
-    </div>
-    <p>Already have an account? <a href="{% url 'login' %}">Login here</a></p>
 </div>
+{% endblock %}
+
+{% block custom_css %}
+<style>
+    .signup-container {
+        max-width: 400px;
+        margin: 40px auto;
+        padding: 20px;
+        background-color: #f8f9fa;
+        border-radius: 10px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .signup-form {
+        display: flex;
+        flex-direction: column;
+    }
+    .signup-form .form-group {
+        margin-bottom: 15px;
+    }
+    .signup-form .form-group label {
+        display: block;
+        margin-bottom: 5px;
+    }
+    .signup-form .form-group input {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ced4da;
+        border-radius: 5px;
+    }
+    .signup-form .btn-primary {
+        padding: 10px;
+        border-radius: 5px;
+    }
+    .login-link {
+        text-align: center;
+    }
+</style>
 {% endblock %}

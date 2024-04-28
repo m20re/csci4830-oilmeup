@@ -1,16 +1,72 @@
 {% extends "base.html" %}
 
+{% block title %}
+<title>AutoMatch - Find Cars Within Your Budget</title>
+{% endblock %}
+
 {% block content %}
-<h1>Welcome, {{ user.username }}!</h1>
-<p>Your budget is {{ budget }}.</p>
-{% if cars_within_budget %}
-  <h2>Cars within your budget:</h2>
-  <ul>
-    {% for car in cars_within_budget %}
-      <li>{{ car.make }} {{ car.model }} - ${{ car.price }}</li>
-    {% endfor %}
-  </ul>
-{% else %}
-  <p>There are no cars available within your budget.</p>
-{% endif %}
+<div class="my-4 p-5 bg-light rounded-3 text-center">
+    <h1 class="display-5 fw-bold">Welcome, {{ user.username }}!</h1>
+    <p class="fs-4">Your budget is <strong>${{ budget }}</strong>.</p>
+    {% if cars_within_budget %}
+        <div class="mt-5">
+            <h2 class="fw-bold">Cars within your budget:</h2>
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+                {% for car in cars_within_budget %}
+                    <div class="col">
+                        <div class="card h-100">
+                            <img src="{{ car.image.url }}" class="card-img-top" alt="{{ car.make }} {{ car.model }}" style="height: 200px; object-fit: cover;">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ car.make }} {{ car.model }}</h5>
+                                <p class="card-text">$ {{ car.price }}</p>
+                                <a href="{% url 'car-detail' car.id %}" class="btn btn-primary">View Details</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% else %}
+        <div class="alert alert-info" role="alert">
+            There are no cars available within your budget.
+        </div>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block custom_css %}
+<style>
+    .signup-container {
+        max-width: 400px;
+        margin: 40px auto;
+        padding: 20px;
+        background-color: #f8f9fa;
+        border-radius: 10px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .signup-form {
+        display: flex;
+        flex-direction: column;
+    }
+    .signup-form .form-group {
+        margin-bottom: 15px;
+    }
+    .signup-form .form-group label {
+        display: block;
+        margin-bottom: 5px;
+    }
+    .signup-form .form-group input {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ced4da;
+        border-radius: 5px;
+    }
+    .signup-form .btn-primary {
+        padding: 10px;
+        border-radius: 5px;
+    }
+    .login-link {
+        text-align: center;
+    }
+</style>
 {% endblock %}
