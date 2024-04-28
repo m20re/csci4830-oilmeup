@@ -1,13 +1,9 @@
 from django.shortcuts import render
-from django.views.generic import ListView, DetailView
-from .models import Car
+from .models import Car, UserProfile
 from django.db.models import Q
-from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
 from django.views import generic
-from django.contrib.auth.forms import UserCreationForm
 from .forms import CustomUserCreationForm
-from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 
 def index(request):
@@ -22,10 +18,8 @@ def index(request):
     return render(request, 'index.html', context=context)
 # Create your views here.
 
-from django.views.generic import ListView
-from .models import Car
 
-class CarListView(ListView):
+class CarListView(generic.ListView):
     model = Car
     template_name = 'car_catalog/car_list.html'
     context_object_name = 'cars'
@@ -63,7 +57,7 @@ class CarListView(ListView):
             )
         return queryset
 
-class CarDetailView(DetailView):
+class CarDetailView(generic.DetailView):
     model = Car
     template_name = 'car_catalog/car_detail.html'
     context_object_name = 'car'
@@ -73,9 +67,6 @@ class SignUp(generic.CreateView):
     success_url = reverse_lazy('login')
     template_name = 'signup.html'
 
-from django.shortcuts import render
-from django.contrib.auth.decorators import login_required
-from .models import Car, UserProfile
 
 @login_required
 def profile_view(request):
