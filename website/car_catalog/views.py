@@ -1,9 +1,9 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Car, UserProfile
 from django.db.models import Q
 from django.urls import reverse_lazy
 from django.views import generic
-from .forms import CustomUserCreationForm
+from .forms import CustomUserCreationForm, UserProfileForm
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
 
@@ -18,7 +18,6 @@ def index(request):
 
     return render(request, 'index.html', context=context)
 # Create your views here.
-
 
 class CarListView(generic.ListView):
     model = Car
@@ -85,7 +84,6 @@ class SignUp(generic.CreateView):
             return super().form_valid(form)
 
 
-
 @login_required
 def profile_view(request):
     # Get the logged in user's profile
@@ -102,3 +100,19 @@ def profile_view(request):
     }
 
     return render(request, 'profile.html', context)
+
+@login_required
+def update_profile(request):
+    # Get the user's profile or raise an error
+    user_profile = get_object_or_404(UserProfile, user=request.user)
+
+    if request.method == 'POST':
+        form = UserProfileForm(request.POST, instance=user_profile)
+        if form.is_valid():
+            form.save()
+            return redirect('profile_view')
+        else:
+            return render(request, 'profile_edit.html', {'form': form})
+    else:
+        form = UserProfileForm(instance=user_profile)
+        return render(request, 'profile_edit.html', {'form': form})

@@ -32,3 +32,15 @@ class CustomUserCreationForm(UserCreationForm):
             user_profile = UserProfile(user=user, budget=self.cleaned_data['budget'])
             user_profile.save()
         return user
+    
+class UserProfileForm(forms.ModelForm):
+    class Meta:
+        model = UserProfile
+        fields = ['budget']
+
+    # raises error if the budget is too large
+    def clean_budget(self):
+        budget = self.cleaned_data.get('budget')
+        if budget >= 1000000:
+            raise ValidationError("The budget cannot exceed $1,000,000.")
+        return budget

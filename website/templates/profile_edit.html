@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="edit-container">
+    <h1 class="display-5 fw-bold text-center">Edit Profile</h1>
+    <form method="post" class="edit-form">
+        {% csrf_token %}
+        <div class="form-group">
+        {{ form.as_p }}
+        <button type="submit">Update</button>
+        </div>
+    </form>
+</div>
+{% endblock %}
+
+{% block custom_css %}
+<style>
+    .edit-container {
+        max-width: 400px;
+        margin: 40px auto;
+        padding: 20px;
+        background-color: #f8f9fa;
+        border-radius: 10px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .edit-form {
+            display: flex;
+            flex-direction: column;
+    }
+    .edit-form .form-group {
+        margin-bottom: 15px;
+    }
+
+
+
+
+</style>
+{% endblock %}
