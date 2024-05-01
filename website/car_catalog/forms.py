@@ -17,6 +17,13 @@ class CustomUserCreationForm(UserCreationForm):
         if User.objects.filter(username=username).exists():
             raise ValidationError("This username is already taken. ")
         return username
+    
+    # raises error if the budget is too large
+    def clean_budget(self):
+        budget = self.cleaned_data.get('budget')
+        if budget >= 1000000:
+            raise ValidationError("The budget cannot exceed $1,000,000.")
+        return budget
 
     def save(self, commit=True):
         user = super().save(commit=False)
