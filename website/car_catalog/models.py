@@ -67,9 +67,6 @@ class UserProfile(models.Model):
 
     # Add any other additional fields here
 
-    def __str__(self):
-        return self.user.username
-
     class Meta:
         ordering = ['user__username']
 
@@ -79,5 +76,5 @@ class UserProfile(models.Model):
     
     def __str__(self):
         """String for representing the Model object."""
-        return f'{self.year}, {self.make}, {self.model}'
+        return f'{self.user.username}'
     
